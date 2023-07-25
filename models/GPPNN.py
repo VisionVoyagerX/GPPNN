@@ -40,7 +40,7 @@ class BasicUnit(nn.Module):
             nn.ReLU(True),
             nn.Conv2d(mid_channels, out_channels,
                       kernel_size, padding=p, bias=False),
-            nn.Dropout(p=0.2)
+            # nn.Dropout(p=0.2)
         )
 
     def forward(self, input):
@@ -66,7 +66,7 @@ class LRBlock(nn.Module):
         LR_Residual = LR - LR_hat
         HR_Residual = upsample(self.get_HR_residual(LR_Residual), M, N)
         HR = self.prox(HR + HR_Residual)
-        nn.Dropout(p=0.2)
+        # nn.Dropout(p=0.2)
         return HR
 
 
@@ -88,7 +88,7 @@ class PANBlock(nn.Module):
         PAN_Residual = PAN - PAN_hat
         HR_Residual = self.get_HR_residual(PAN_Residual)
         HR = self.prox(HR + HR_Residual)
-        nn.Dropout(p=0.2)
+        # nn.Dropout(p=0.2)
         return HR
 
 
