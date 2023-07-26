@@ -92,7 +92,7 @@ def main():
     # load checkpoint
     if continue_from_checkpoint:
         tr_metrics, val_metrics, test_metrics = load_checkpoint(torch.load(
-            'checkpoints/gppnn_GF2/gppnn_2023_07_25-18_15_08.pth.tar'), model, optimizer, tr_metrics, val_metrics, test_metrics)
+            'checkpoints/gppnn_GF2/gppnn_2023_07_25-18_15_08.pth.tar'), model, optimizer, tr_metrics, val_metrics)
         print('Model Loaded ...')
 
     def scaleMinMax(x):
