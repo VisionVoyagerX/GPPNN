@@ -11,7 +11,7 @@ from torch.optim.lr_scheduler import StepLR
 from torchsummary import summary
 
 from data_loader.DataLoader import DIV2K, GaoFen2, Sev2Mod, WV3, GaoFen2panformer
-from models.GPPNN import CrossSwinTransformer
+from models.GPPNN import gppnn
 from utils import *
 import matplotlib.pyplot as plt
 import numpy as np
@@ -25,27 +25,25 @@ def main():
 
     # Initialize DataLoader
     train_dataset = GaoFen2(
-        Path("F:/Data/GaoFen-2/train/train_gf2-001.h5"), transforms=[(RandomHorizontalFlip(1), 0.3), (RandomVerticalFlip(1), 0.3)])  # /home/ubuntu/project
+        Path("/home/ubuntu/project/Data/GaoFen-2/train/train_gf2-001.h5"))  # transforms=[(RandomHorizontalFlip(1), 0.3), (RandomVerticalFlip(1), 0.3)]
     train_loader = DataLoader(
-        dataset=train_dataset, batch_size=128, shuffle=True, drop_last=True)
+        dataset=train_dataset, batch_size=4, shuffle=True, drop_last=True)
 
     validation_dataset = GaoFen2(
-        Path("F:/Data/GaoFen-2/val/valid_gf2.h5"))
+        Path("/home/ubuntu/project/Data/GaoFen-2/val/valid_gf2.h5"))
     validation_loader = DataLoader(
         dataset=validation_dataset, batch_size=1, shuffle=True)
 
     test_dataset = GaoFen2(
-        Path("F:/Data/GaoFen-2/drive-download-20230623T170619Z-001/test_gf2_multiExm1.h5"))
+        Path("/home/ubuntu/project/Data/GaoFen-2/drive-download-20230623T170619Z-001/test_gf2_multiExm1.h5"))
     test_loader = DataLoader(
         dataset=test_dataset, batch_size=1, shuffle=False)
 
     # Initialize Model, optimizer, criterion and metrics
-    # TODO is imge_size necesasary?
-    model = CrossSwinTransformer(n_feats=64, n_heads=8, head_dim=8, win_size=4,
-                                 n_blocks=3, cross_module=['pan', 'ms'], cat_feat=['pan', 'ms'], mslr_mean=train_dataset.mslr_mean.to(device), mslr_std=train_dataset.mslr_std.to(device), pan_mean=train_dataset.pan_mean.to(device),
-                                 pan_std=train_dataset.pan_std.to(device)).to(device)
+    model = GPPNN(4, 1, 64, 8, mslr_mean=train_dataset.mslr_mean.to(device), mslr_std=train_dataset.mslr_std.to(device), pan_mean=train_dataset.pan_mean.to(device),
+                  pan_std=train_dataset.pan_std.to(device)).to(device)
 
-    optimizer = Adam(model.parameters(), lr=1e-4, betas=(0.9, 0.999))
+    optimizer = Adam(model.parameters(), lr=5e-5, weight_decay=0)
 
     criterion = L1Loss().to(device)
 
@@ -73,7 +71,7 @@ def main():
     best_eval_psnr = 0
     best_test_psnr = 0
     current_daytime = datetime.datetime.now().strftime("%Y_%m_%d-%H_%M_%S")
-    steps = 200000
+    steps = 250000
     save_interval = 1000
     report_interval = 50
     test_intervals = [40000, 60000, 100000,
@@ -81,25 +79,20 @@ def main():
     evaluation_interval = [40000, 60000, 100000,
                            140000, 160000, 200000]
     continue_from_checkpoint = True
+
     val_steps = 100
 
     # Model summary
-    pan_example = torch.randn(
-        (1, 1, 256, 256)).to(device)
-    mslr_example = torch.randn(
-        (1, 4, 64, 64)).to(device)
+    summary(model, [(1, 1, 256, 256), (1, 4, 64, 64)],
+            dtypes=[torch.float32, torch.float32])
 
-    summary(model, pan_example, mslr_example, verbose=1)
-    print('corrected trainable parms: ', sum(p.numel()
-          for p in model.parameters() if p.requires_grad))
-
-    scheduler = StepLR(optimizer, step_size=1, gamma=0.99)
-    lr_decay_intervals = 10000
+    scheduler = StepLR(optimizer, step_size=1, gamma=0.5)
+    lr_decay_intervals = 50000
 
     # load checkpoint
     if continue_from_checkpoint:
         tr_metrics, val_metrics, test_metrics = load_checkpoint(torch.load(
-            'checkpoints/panformer/panformer_2023_07_19-00_31_49_best_eval.pth.tar'), model, optimizer, tr_metrics, val_metrics, test_metrics)
+            'ccheckpoints/gppnn_GF2/gppnn_2023_07_25-18_15_08.pth.tar'), model, optimizer, tr_metrics, val_metrics, test_metrics)
         print('Model Loaded ...')
 
     def scaleMinMax(x):
