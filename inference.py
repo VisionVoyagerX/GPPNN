@@ -91,7 +91,7 @@ def main():
 
     # load checkpoint
     if continue_from_checkpoint:
-        tr_metrics, val_metrics, test_metrics = load_checkpoint(torch.load(
+        tr_metrics, val_metrics = load_checkpoint(torch.load(
             'checkpoints/gppnn_GF2/gppnn_2023_07_25-18_15_08.pth.tar'), model, optimizer, tr_metrics, val_metrics)
         print('Model Loaded ...')
 
@@ -138,7 +138,15 @@ def main():
                 axis[3].set_title('(d) GT')
                 axis[3].axis("off")
 
-                plt.savefig('results/Images.png')
+                plt.savefig('results/Images_GF2.png')
+
+                mslr = mslr.permute(0, 3, 2, 1).detach().cpu().numpy()
+                pan = pan.permute(0, 3, 2, 1).detach().cpu().numpy()
+                mssr = mssr.permute(0, 3, 2, 1).detach().cpu().numpy()
+                gt = mshr.permute(0, 3, 2, 1).detach().cpu().numpy()
+
+                np.savez('results/img_array_GF2.npz', mslr=mslr,
+                         pan=pan, mssr=mssr, gt=gt)
 
 
 if __name__ == '__main__':
