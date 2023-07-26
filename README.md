@@ -1,9 +1,10 @@
 # PanFormer
+
 PanFormer pansharpenning method implemented in pytorch
 
 Pretrained model is provided
 
-Based on implementation: https://github.com/xyc19970716/Deep-Learning-PanSharpening/tree/main
+Based on implementation: https://github.com/shuangxu96/GPPNN
 
 Paper link: https://openaccess.thecvf.com/content/CVPR2021/papers/Xu_Deep_Gradient_Projection_Networks_for_Pan-sharpening_CVPR_2021_paper.pdf
 
@@ -73,7 +74,9 @@ Params size (MB): 2.02
 Estimated Total Size (MB): 102.27
 ==========================================================================================
 ```
+
 # Quantitative Results
+
 ## GaoFen-2
 
 ![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Figures.png?raw=true)
@@ -83,6 +86,7 @@ Estimated Total Size (MB): 102.27
 ![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Figures.png?raw=true)
 
 # Qualitative Results
+
 ## GaoFen-2
 
 ![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Images.png?raw=true)
@@ -90,4 +94,3 @@ Estimated Total Size (MB): 102.27
 ## WorldView-3
 
 ![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Images.png?raw=true)
-
