@@ -97,7 +97,7 @@ def main():
                           'tr_metrics': tr_metrics,
                           'val_metrics': val_metrics,
                           'test_metrics': test_metrics}
-            save_checkpoint(checkpoint, 'gppnn', current_daytime)
+            save_checkpoint(checkpoint, 'gppnn_GF2', current_daytime)
 
         try:
             # Samples the batch
@@ -204,7 +204,7 @@ def main():
                               'tr_metrics': tr_metrics,
                               'val_metrics': val_metrics,
                               'test_metrics': test_metrics}
-                save_checkpoint(checkpoint, 'gppnn',
+                save_checkpoint(checkpoint, 'gppnn_GF2',
                                 current_daytime + '_best_eval')
 
         # test model
@@ -255,7 +255,7 @@ def main():
                               'tr_metrics': tr_metrics,
                               # 'val_metrics': val_metrics,
                               'test_metrics': test_metrics}
-                save_checkpoint(checkpoint, 'gppnn',
+                save_checkpoint(checkpoint, 'gppnn_GF2',
                                 current_daytime + '_best_test')
 
     print('==> training ended <==')
