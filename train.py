@@ -21,23 +21,23 @@ def main():
     print(device)
 
     # Initialize DataLoader
-    train_dataset = GaoFen2(
-        Path("/home/ubuntu/project/Data/GaoFen-2/train/train_gf2-001.h5"))  # transforms=[(RandomHorizontalFlip(1), 0.3), (RandomVerticalFlip(1), 0.3)]
+    train_dataset = WV3(
+        Path("/home/ubuntu/project/Data/WorldView3/train/train_wv3-001.h5"))  # transforms=[(RandomHorizontalFlip(1), 0.3), (RandomVerticalFlip(1), 0.3)]
     train_loader = DataLoader(
         dataset=train_dataset, batch_size=4, shuffle=True, drop_last=True)
 
-    validation_dataset = GaoFen2(
-        Path("/home/ubuntu/project/Data/GaoFen-2/val/valid_gf2.h5"))
+    validation_dataset = WV3(
+        Path("/home/ubuntu/project/Data/WorldView3/val/valid_wv3.h5"))
     validation_loader = DataLoader(
         dataset=validation_dataset, batch_size=1, shuffle=True)
 
-    test_dataset = GaoFen2(
-        Path("/home/ubuntu/project/Data/GaoFen-2/drive-download-20230623T170619Z-001/test_gf2_multiExm1.h5"))
+    test_dataset = WV3(
+        Path("/home/ubuntu/project/Data/WorldView3/drive-download-20230627T115841Z-001/test_wv3_multiExm1.h5"))
     test_loader = DataLoader(
         dataset=test_dataset, batch_size=1, shuffle=False)
 
     # Initialize Model, optimizer, criterion and metrics
-    model = GPPNN(4, 1, 64, 8, mslr_mean=train_dataset.mslr_mean.to(device), mslr_std=train_dataset.mslr_std.to(device), pan_mean=train_dataset.pan_mean.to(device),
+    model = GPPNN(8, 1, 64, 8, mslr_mean=train_dataset.mslr_mean.to(device), mslr_std=train_dataset.mslr_std.to(device), pan_mean=train_dataset.pan_mean.to(device),
                   pan_std=train_dataset.pan_std.to(device)).to(device)
 
     optimizer = Adam(model.parameters(), lr=5e-5, weight_decay=0)
@@ -97,7 +97,7 @@ def main():
                           'tr_metrics': tr_metrics,
                           'val_metrics': val_metrics,
                           'test_metrics': test_metrics}
-            save_checkpoint(checkpoint, 'gppnn_GF2', current_daytime)
+            save_checkpoint(checkpoint, 'gppnn_WV3', current_daytime)
 
         try:
             # Samples the batch
@@ -204,7 +204,7 @@ def main():
                               'tr_metrics': tr_metrics,
                               'val_metrics': val_metrics,
                               'test_metrics': test_metrics}
-                save_checkpoint(checkpoint, 'gppnn_GF2',
+                save_checkpoint(checkpoint, 'gppnn_WV3',
                                 current_daytime + '_best_eval')
 
         # test model
@@ -255,7 +255,7 @@ def main():
                               'tr_metrics': tr_metrics,
                               # 'val_metrics': val_metrics,
                               'test_metrics': test_metrics}
-                save_checkpoint(checkpoint, 'gppnn_GF2',
+                save_checkpoint(checkpoint, 'gppnn_WV3',
                                 current_daytime + '_best_test')
 
     print('==> training ended <==')
