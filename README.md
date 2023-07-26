@@ -18,61 +18,99 @@ The GaoFen-2 and WorldView-3 dataset download links can be found in https://gith
 ==========================================================================================
 Layer (type:depth-idx)                   Output Shape              Param #
 ==========================================================================================
-├─Sequential: 1-1                        [-1, 64, 64, 64]          --
-|    └─SwinModule: 2-1                   [-1, 64, 128, 128]        --
-|    |    └─PatchMerging: 3-1            [-1, 128, 128, 64]        320
-|    └─SwinModule: 2-2                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-2            [-1, 64, 64, 64]          16,448
-├─Sequential: 1-2                        [-1, 64, 64, 64]          --
-|    └─SwinModule: 2-3                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-3            [-1, 64, 64, 64]          320
-|    └─SwinModule: 2-4                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-4            [-1, 64, 64, 64]          4,160
-├─ModuleList: 1                          []                        --
-|    └─SwinModule: 2-5                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-5            [-1, 64, 64, 64]          4,160
-|    |    └─PatchMerging: 3-6            [-1, 64, 64, 64]          (recursive)
-├─ModuleList: 1                          []                        --
-|    └─SwinModule: 2-6                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-7            [-1, 64, 64, 64]          4,160
-|    |    └─PatchMerging: 3-8            [-1, 64, 64, 64]          (recursive)
-├─ModuleList: 1                          []                        --
-|    └─SwinModule: 2-7                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-9            [-1, 64, 64, 64]          4,160
-|    |    └─PatchMerging: 3-10           [-1, 64, 64, 64]          (recursive)
-├─ModuleList: 1                          []                        --
-|    └─SwinModule: 2-8                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-11           [-1, 64, 64, 64]          4,160
-|    |    └─PatchMerging: 3-12           [-1, 64, 64, 64]          (recursive)
-├─ModuleList: 1                          []                        --
-|    └─SwinModule: 2-9                   [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-13           [-1, 64, 64, 64]          4,160
-|    |    └─PatchMerging: 3-14           [-1, 64, 64, 64]          (recursive)
-├─ModuleList: 1                          []                        --
-|    └─SwinModule: 2-10                  [-1, 64, 64, 64]          --
-|    |    └─PatchMerging: 3-15           [-1, 64, 64, 64]          4,160
-|    |    └─PatchMerging: 3-16           [-1, 64, 64, 64]          (recursive)
-├─Sequential: 1-3                        [-1, 4, 256, 256]         --
-|    └─Conv2d: 2-11                      [-1, 256, 64, 64]         295,168
-|    └─PixelShuffle: 2-12                [-1, 64, 128, 128]        --
-|    └─ReLU: 2-13                        [-1, 64, 128, 128]        --
-|    └─Conv2d: 2-14                      [-1, 256, 128, 128]       147,712
-|    └─PixelShuffle: 2-15                [-1, 64, 256, 256]        --
-|    └─ReLU: 2-16                        [-1, 64, 256, 256]        --
-|    └─Conv2d: 2-17                      [-1, 64, 256, 256]        36,928
-|    └─ReLU: 2-18                        [-1, 64, 256, 256]        --
-|    └─Conv2d: 2-19                      [-1, 4, 256, 256]         2,308
+GPPNN                                    [1, 4, 256, 256]          --
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-1                      [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-1               [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-2               [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-3               [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-2                     [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-4               [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-5               [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-6               [1, 4, 256, 256]          512
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-3                      [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-7               [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-8               [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-9               [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-4                     [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-10              [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-11              [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-12              [1, 4, 256, 256]          512
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-5                      [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-13              [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-14              [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-15              [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-6                     [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-16              [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-17              [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-18              [1, 4, 256, 256]          512
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-7                      [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-19              [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-20              [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-21              [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-8                     [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-22              [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-23              [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-24              [1, 4, 256, 256]          512
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-9                      [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-25              [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-26              [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-27              [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-10                    [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-28              [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-29              [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-30              [1, 4, 256, 256]          512
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-11                     [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-31              [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-32              [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-33              [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-12                    [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-34              [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-35              [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-36              [1, 4, 256, 256]          512
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-13                     [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-37              [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-38              [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-39              [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-14                    [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-40              [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-41              [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-42              [1, 4, 256, 256]          512
+├─ModuleList: 1-15                       --                        (recursive)
+│    └─LRBlock: 2-15                     [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-43              [1, 4, 256, 256]          4,608
+│    │    └─BasicUnit: 3-44              [1, 4, 64, 64]            4,608
+│    │    └─BasicUnit: 3-45              [1, 4, 256, 256]          4,608
+├─ModuleList: 1-16                       --                        (recursive)
+│    └─PANBlock: 2-16                    [1, 4, 256, 256]          --
+│    │    └─BasicUnit: 3-46              [1, 1, 256, 256]          320
+│    │    └─BasicUnit: 3-47              [1, 4, 256, 256]          320
+│    │    └─BasicUnit: 3-48              [1, 4, 256, 256]          512
 ==========================================================================================
-Total params: 528,324
-Trainable params: 528,324
+Total params: 119,808
+Trainable params: 119,808
 Non-trainable params: 0
-Total mult-adds (G): 6.19
+Total mult-adds (G): 5.59
 ==========================================================================================
-Input size (MB): 0.25
-Forward/backward pass size (MB): 100.00
-Params size (MB): 2.02
-Estimated Total Size (MB): 102.27
+Input size (MB): 0.33
+Forward/backward pass size (MB): 1431.31
+Params size (MB): 0.48
+Estimated Total Size (MB): 1432.11
 ==========================================================================================
+
 ```
 
 # Quantitative Results
