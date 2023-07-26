@@ -3,9 +3,9 @@ PanFormer pansharpenning method implemented in pytorch
 
 Pretrained model is provided
 
-Based on implementation: [https://github.com/xyc19970716/Deep-Learning-PanSharpening/tree/main]
+Based on implementation: https://github.com/xyc19970716/Deep-Learning-PanSharpening/tree/main
 
-Paper link: [[https://www.mdpi.com/2072-4292/8/7/594](https://arxiv.org/abs/2203.02916)](https://openaccess.thecvf.com/content/CVPR2021/papers/Xu_Deep_Gradient_Projection_Networks_for_Pan-sharpening_CVPR_2021_paper.pdf)
+Paper link: https://openaccess.thecvf.com/content/CVPR2021/papers/Xu_Deep_Gradient_Projection_Networks_for_Pan-sharpening_CVPR_2021_paper.pdf
 
 # Dataset
 
