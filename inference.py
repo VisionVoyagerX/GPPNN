@@ -11,7 +11,7 @@ from torch.optim.lr_scheduler import StepLR
 from torchinfo import summary
 
 from data_loader.DataLoader import DIV2K, GaoFen2, Sev2Mod, WV3, GaoFen2panformer
-from models.GPPNN import gppnn
+from models.GPPNN import GPPNN
 from utils import *
 import matplotlib.pyplot as plt
 import numpy as np
