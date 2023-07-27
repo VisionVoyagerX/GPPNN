@@ -83,7 +83,7 @@ def main():
     val_steps = 100
 
     # Model summary
-    summary(model, [(1, 1, 256, 256), (1, 8, 64, 64)],
+    summary(model, [(1, 1, 256, 256), (1, 4, 64, 64)],
             dtypes=[torch.float32, torch.float32])
 
     scheduler = StepLR(optimizer, step_size=1, gamma=0.5)
