@@ -22,17 +22,17 @@ def main():
 
     # Initialize DataLoader
     train_dataset = GaoFen2(
-        Path("F:/Data/GaoFen-2/train/train_gf2-001.h5"))  # transforms=[(RandomHorizontalFlip(1), 0.3), (RandomVerticalFlip(1), 0.3)]
+        Path("/home/ubuntu/project/Data/GaoFen-2/train/train_gf2-001.h5"))  # transforms=[(RandomHorizontalFlip(1), 0.3), (RandomVerticalFlip(1), 0.3)]
     train_loader = DataLoader(
         dataset=train_dataset, batch_size=4, shuffle=True, drop_last=True)
 
     validation_dataset = GaoFen2(
-        Path("F:/Data/GaoFen-2/val/valid_gf2.h5"))
+        Path("/home/ubuntu/project/Data/GaoFen-2/val/valid_gf2.h5"))
     validation_loader = DataLoader(
         dataset=validation_dataset, batch_size=1, shuffle=True)
 
     test_dataset = GaoFen2(
-        Path("F:/Data/GaoFen-2/drive-download-20230623T170619Z-001/test_gf2_multiExm1.h5"))
+        Path("/home/ubuntu/project/Data/GaoFen-2/drive-download-20230623T170619Z-001/test_gf2_multiExm1.h5"))
     test_loader = DataLoader(
         dataset=test_dataset, batch_size=1, shuffle=False)
 
@@ -86,7 +86,7 @@ def main():
     lr_decay_intervals = 50000
 
     continue_from_checkpoint = True
-    checkpoint_path = 'checkpoints/gppnn/gppnn_2023_07_23-14_24_23.pth.tar'
+    checkpoint_path = 'checkpoints/gppnn_GF2/gppnn_2023_07_25-18_15_08.pth.tar'
 
     # load checkpoint
     if continue_from_checkpoint:
