@@ -40,7 +40,7 @@ def main():
         dataset=test_dataset, batch_size=1, shuffle=False)
 
     # Initialize Model, optimizer, criterion and metrics
-    model = GPPNN(4, 1, 64, 8, mslr_mean=train_dataset.mslr_mean.to(device), mslr_std=train_dataset.mslr_std.to(device), pan_mean=train_dataset.pan_mean.to(device),
+    model = GPPNN(8, 1, 64, 8, mslr_mean=train_dataset.mslr_mean.to(device), mslr_std=train_dataset.mslr_std.to(device), pan_mean=train_dataset.pan_mean.to(device),
                   pan_std=train_dataset.pan_std.to(device)).to(device)
 
     optimizer = Adam(model.parameters(), lr=5e-5, weight_decay=0)
@@ -83,7 +83,7 @@ def main():
     val_steps = 100
 
     # Model summary
-    summary(model, [(1, 1, 256, 256), (1, 4, 64, 64)],
+    summary(model, [(1, 1, 256, 256), (1, 8, 64, 64)],
             dtypes=[torch.float32, torch.float32])
 
     scheduler = StepLR(optimizer, step_size=1, gamma=0.5)
