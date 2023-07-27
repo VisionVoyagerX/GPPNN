@@ -117,18 +117,18 @@ Estimated Total Size (MB): 1432.11
 
 ## GaoFen-2
 
-![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Figures.png?raw=true)
+![alt text](https://github.com/nickdndndn/GPPNN/blob/main/results/Figures_GF2.png?raw=true)
 
 ## WorldView-3
 
-![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Figures.png?raw=true)
+![alt text](https://github.com/nickdndndn/GPPNN/blob/main/results/Figures_WV3.png?raw=true)
 
 # Qualitative Results
 
 ## GaoFen-2
 
-![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Images.png?raw=true)
+![alt text](https://github.com/nickdndndn/GPPNN/blob/main/results/Images_GF2.png?raw=true)
 
 ## WorldView-3
 
-![alt text](https://github.com/nickdndndn/PanFormer/blob/main/results/Images.png?raw=true)
+![alt text](https://github.com/nickdndndn/GPPNN/blob/main/results/Images_WV3.png?raw=true)
